@@ -119,29 +119,43 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', context)
 
 
-class AuthorCreate(generic.edit.CreateView):
-    model = Author
-    fields = '__all__'
-
-class AuthorUpdate(generic.edit.UpdateView):
+class AuthorCreate(PermissionRequiredMixin, generic.edit.CreateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+    permission_required = 'catalog.can_mark_returned'
+
+class AuthorUpdate(PermissionRequiredMixin, generic.edit.UpdateView):
+    model = Author
+    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+    permission_required = 'catalog.can_mark_returned'
 
 class AuthorDelete(generic.edit.DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
+    permission_required = 'catalog.can_mark_returned'
 
 
-class BookCreate(generic.edit.CreateView):
+#from challenge nº9
+class BookCreate(PermissionRequiredMixin, generic.edit.CreateView):
+    model = Book
+    fields = ['title', 'author', 'summary', 'isbn', 'genre']
+    permission_required = 'catalog.can_mark_returned'
+
+
+class BookUpdate(PermissionRequiredMixin, generic.edit.UpdateView):
     model = Book
     fields = '__all__'
+    permission_required = 'catalog.can_mark_returned'
 
 
-class BookUpdate(generic.edit.UpdateView):
-    model = Book
-    fields = '__all__'
-
-
-class BookDelete(generic.edit.DeleteView):
+class BookDelete(PermissionRequiredMixin, generic.edit.DeleteView):
     model = Book
     success_url = reverse_lazy('authors')
+    permission_required = 'catalog.can_mark_returned'
+
+
+class BookInstanceCreate(generic.edit.CreateView):
+    model = BookInstance
+    fields = '__all__'
+    intial = {'Book.title': ['title']}
+    permission_required = 'catalog.can_mark_returned'

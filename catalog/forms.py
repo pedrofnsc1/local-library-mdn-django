@@ -51,3 +51,8 @@ class BookCreateForm(ModelForm):
     class Meta:
         model = Book
         fields = '__all__'
+
+class BookInstanceCreateForm(ModelForm):
+    class Meta:
+        model = BookInstance
+        fields = '__all__'
