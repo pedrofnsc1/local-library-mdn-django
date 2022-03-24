@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <form action="/" method="post">
+  <form action="{{ book.get_absolute_url }}" method="post">
+
     {% csrf_token %}
 
-    {{form.as_p}}
+    <table>
+      {{form.as_table}}
+    </table>
     
     <input type="submit" value="Confirm">
   </form>
