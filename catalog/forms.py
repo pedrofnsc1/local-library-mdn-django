@@ -28,17 +28,17 @@ class RenewBookForm(forms.Form):
 
 
 ## REALISA A MESMA COISA DA CLASSE ACIMA 
-#class RenewalBookModelForm(ModelForm):
+# class RenewalBookModelForm(ModelForm):
 #    def clean_due_back(self):
 #       data = self.cleaned_data['due_back']
 
 #        if data < datetime.date.today():
-#          raise ValidationError(_('Invalid date - Try again.'))
+#           raise ValidationError(_('Invalid date - Try again.'))
 #        if data > datetime.date.today() + datetime.timedelta(weeks=4):
 #           raise ValidationError(_('Invalid date - Renewal more than 4 weeks ahead))
-#
+
 #        return data
-#
+
 #    class Meta:
 #        model = BookInstance
 #        fields = ['due_back']

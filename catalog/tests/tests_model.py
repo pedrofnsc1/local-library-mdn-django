@@ -68,8 +68,14 @@ class BookTest(TestCase):
         self.assertEquals(max_length, 200)
         print("Max length - OK")
 
-    def test_title_is_null(self):
-        book = Book.objects.get(id=1)
-        is_null = book._meta.get_field('title').null
-        self.assertEquals(bool(is_null), False)
-        print("Title: " + is_null)
+    # def test_title_is_null(self):
+    #     book = Book.objects.get(id=1)
+    #     is_null = book._meta.get_field('title').null
+    #     self.assertEquals(bool(is_null), False)
+    #     print("Title: " + is_null)
+
+
+class BookInstanceTest(TestCase):
+    @classmethod
+    def setUp(cls):
+        ...
