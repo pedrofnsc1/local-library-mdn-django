@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin # noqa:
 
 from catalog.forms import RenewBookForm
 from catalog.models import Author, Book, BookInstance, Genre
@@ -19,7 +19,7 @@ def index(request):
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
 
-    num_instances_available = BookInstance.objects.filter(status__exact='a').count()
+    num_instances_available = BookInstance.objects.filter(status__exact='a').count() # noqa:
 
     num_genre = Genre.objects.filter(name__exact='Fantasy').count()
 
@@ -72,7 +72,7 @@ class AuthorDetailView(generic.DetailView):
 
     def author_detail_view(request, primary_key):
         author = get_object_or_404(Author, pk=primary_key)
-        return render(request, 'catalog/author_detail.html', context={'author': author})
+        return render(request, 'catalog/author_detail.html', context={'author': author}) # noqa:
 
 
 class LoanedBookByUserListView(LoginRequiredMixin, generic.ListView):
@@ -81,7 +81,7 @@ class LoanedBookByUserListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back') # noqa:
 
 class LoanedAllBooksListView(PermissionRequiredMixin, generic.ListView):
     model = BookInstance
@@ -90,7 +90,7 @@ class LoanedAllBooksListView(PermissionRequiredMixin, generic.ListView):
     paginate_by = 5 
 
     def get_queryset(self):
-        return BookInstance.objects.filter(status__exact='o').order_by('due_back')
+        return BookInstance.objects.filter(status__exact='o').order_by('due_back') # noqa:
 
 @login_required
 @permission_required('catalog.can_mark_returned')
@@ -108,7 +108,7 @@ def renew_book_librarian(request, pk):
             return HttpResponseRedirect(reverse('index'))
     
     else:
-        proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+        proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3) # noqa:
         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
     
     context = {
